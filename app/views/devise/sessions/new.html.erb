@@ -1,0 +1,52 @@
+<section class="bg-gray-50">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-[calc(100vh-200px)] lg:py-0">
+    
+      <div class="w-full bg-[#00488B] rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <h1 class="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
+                  Sign in to your account
+              </h1>
+
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'space-y-4 md:space-y-6' }) do |f| %>
+                  <div>
+                      <%= f.label :email, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+                      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "name@company.com", required: true %>
+                      <% if resource.errors[:email].any? %>
+                        <p class="text-red-500 text-xs mt-1">
+                          <%= resource.errors.full_messages_for(:email).join(", ") %>
+                        </p>
+                      <% end %>
+                  </div>
+
+                  <div>
+                      <%= f.label :password, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+                      <%= f.password_field :password, autocomplete: "current-password", class: "bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "••••••••", required: true %>
+                      <% if resource.errors[:password].any? %>
+                        <p class="text-red-500 text-xs mt-1">
+                          <%= resource.errors.full_messages_for(:password).join(", ") %>
+                        </p>
+                      <% end %>
+                  </div>
+
+                  <% if devise_mapping.rememberable? %>
+                    <div class="flex items-center">
+                        <%= f.check_box :remember_me, class: "w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" %>
+                        <%= f.label :remember_me, class: "ml-3 text-sm text-gray-500 dark:text-gray-300" %>
+                    </div>
+                  <% end %>
+
+                  <div class="flex items-center justify-between">
+                      <a href="<%= new_password_path(resource_name) %>" class="text-sm font-medium text-white hover:underline">Forgot password?</a>
+                  </div>
+
+                  <%= f.submit "Sign in", class: "w-full text-white bg-gray-800 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
+
+                  <%# <%= render "devise/shared/links" %> 
+
+              <% end %>
+          </div>
+      </div>
+  </div>
+</section>
+
+

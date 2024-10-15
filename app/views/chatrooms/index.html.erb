@@ -1,0 +1,35 @@
+<%# style="background-image: url('<%= asset_path('digital_bg.jpg')'); opacity: 1;" %>
+<div 
+  class="relative bg-cover bg-center bg-fixed py-8"
+>
+  <div class="relative z-10 p-[20px] self-center">
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
+
+    <% content_for :title, "Chatrooms" %>
+
+    <br>
+
+    <div class="flex justify-between items-center w-full self-center mb-[20px]">
+      <div class="flex flex-col">
+        <h1 class="font-black text-2xl text-[#000]">Chatrooms</h1>
+        <p class="w-[60%]">Here you can create a brand new chatroom to start conversations with friends or colleagues. Simply click the button to get started!</p>
+      </div>
+      <%= link_to "Create New chatroom", new_chatroom_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-4">
+      <% @chatrooms.each do |chatroom| %>
+        <div class="bg-white shadow-md rounded-lg p-6">
+          <h2 class="text-xl font-semibold "><%= link_to chatroom.name, chatroom_path(chatroom), class: "text-blue-500 hover:underline" %></h2>
+          <p class="text-gray-600 mb-4 text-[13px]"><%= chatroom.messages.count %> messages</p>
+          <%= link_to "Join Chat", chatroom_path(chatroom), class: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" %>
+        </div>
+      <% end %>
+    </div>
+
+    <%# <%= link_to "Create New Chatroom", new_chatroom_path, class: "mt-6 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" %>
+  </div>
+</div>
+

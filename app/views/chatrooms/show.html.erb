@@ -1,0 +1,77 @@
+<div class="mx-auto md:w-2/3 w-full h-full flex" data-controller="chatroom" data-chatroom-id="<%= @chatroom.id %>">
+
+  <div class="mx-auto min-w-[80%] flex flex-col h-full">
+    <h1 class="text-2xl font-bold mb-4">
+      <%= @chatroom.name %>
+      <%= @chatroom.id %> 
+    </h1>
+
+    <% if @chatroom.present? %>
+      <div>
+        <div data-chatroom-target="messages" id="messages" class="mb-4 overflow-y-scroll h-[50vh] p-4 bg-white rounded shadow">
+          <%= render @chatroom.messages %>
+        </div>
+
+        <form data-action="submit->chatroom#send" data-chatroom-target="form" class="flex space-x-2" enctype="multipart/form-data">
+          <button 
+            type="button"
+            class="px-3 py-3 rounded-full border-[0.7px] border-gray-400 hover:bg-gray-200"
+            data-chatroom-target="attachFileBtn"
+            data-action="click->chatroom#attachFile"
+          >
+            <span data-chatroom-target="fileCountCont" class="relative">
+              <p data-chatroom-target="fileCount" 
+                class="text-[10px] flex items-center justify-center text-white border bg-blue-500 border-white rounded-full p-[0px] w-[17px] h-[17px] absolute top-[-15px] right-[-15px] hidden"
+                hidden 
+              >
+                0
+              </p>
+              <%= image_tag 'attach-file.png', class:"w-[19px] h-[19px]" %>
+            </span>
+          </button>
+          <input data-chatroom-target="input" type="text" placeholder="Type your message here..." autocomplete="off" 
+            class="flex-grow px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+          <input data-chatroom-target="fileInput" type="file" name="message[media]" multiple class="px-4 py-2 border rounded-lg" hidden
+            data-action="change->chatroom#updateFileCount"
+          >
+
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+            <%= image_tag 'send_icon.png', class:"w-[25px] h-[25px]" %>
+          </button>
+        </form>
+      </div>
+    <% else %>
+
+      <p> Chatroom not found </p>
+
+    <% end %>
+
+    <%# modal view %>
+    <div data-controller="modal" class="my-[30px]">
+      <button data-action="click->modal#open" class="bg-green-500 text-white px-4 py-2 rounded">Open Modal</button>
+
+      <div data-modal-target="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-white p-6 rounded shadow-lg">
+          <h2 class="text-xl font-bold mb-4">Modal Title</h2>
+          <p class="mb-4">This is a modal window.</p>
+          <button data-action="click->modal#close" class="bg-red-500 text-white px-4 py-2 rounded">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%# <div class="mx-auto"> %>
+    <%# <% if notice.present? %>
+      <%# <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <%# <% end %>
+
+    <%# <%= render @chatroom %>
+
+    <%# <%= link_to "Edit this chatroom", edit_chatroom_path(@chatroom), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%# <%= link_to "Back to chatrooms", chatrooms_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%# <div class="inline-block ml-2">
+      <%= button_to "Destroy this chatroom", @chatroom, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    <%# </div>
+  </div> %> 
+</div>

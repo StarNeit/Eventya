@@ -1,0 +1,28 @@
+
+<div class="flex items-start mb-4">
+  <div class="flex-shrink-0">
+    <img class="h-10 w-10 rounded-full" src="<%= gravatar_url(message.user.email) %>" alt="<%= message.user.email %>">
+  </div>
+  <div class="ml-4">
+    <div class="text-sm font-semibold text-gray-900"><%= message.user.email %></div>
+    <div class="text-sm text-gray-700"><%= message.content %></div>
+    <% if message.attachments.attached? %> 
+      <div class="mt-2">
+        <% message.attachments.each do |attachment| %>
+          <% if attachment.content_type.start_with?('image') %>
+            <% puts "Resizing image to: 300x300" %>
+            <%= image_tag attachment.variant(resize_to_limit: [300, 300]), class: "rounded" %>
+          <% elsif attachment.content_type.start_with?('video') %>
+            <%= video_tag attachment, controls: true, class: "rounded" %>
+          <% else %>
+            <%= link_to attachment.filename.to_s, url_for(attachment), class: "text-blue-500 hover:underline" %>
+          <% end %>
+        <% end %>
+       
+      </div>
+    <% end %>
+    <div class="text-xs text-gray-500 mt-1"><%= time_ago_in_words(message.created_at) %> ago</div>
+  </div>
+</div>
+
+

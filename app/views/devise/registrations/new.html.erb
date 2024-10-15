@@ -1,0 +1,60 @@
+<section class="bg-gray-50">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-[calc(100vh-200px)] lg:py-0">
+      <div class="w-full bg-[#00488B] rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
+          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <h1 class="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
+                  Sign up for an account
+              </h1>
+
+              <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'space-y-4 md:space-y-6' }) do |f| %>
+                
+                <!-- Error Messages -->
+                <%= render "devise/shared/error_messages", resource: resource %>
+
+                <!-- Email Field -->
+                <div>
+                  <%= f.label :email, class: "block mb-2 text-sm font-medium text-white" %>
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5", placeholder: "name@company.com", required: true %>
+                  <% if resource.errors[:email].any? %>
+                    <p class="text-red-500 text-xs mt-1">
+                      <%= resource.errors.full_messages_for(:email).join(", ") %>
+                    </p>
+                  <% end %>
+                </div>
+
+                <!-- Password Field -->
+                <div>
+                  <%= f.label :password, class: "block mb-2 text-sm font-medium text-white" %>
+                  <% if @minimum_password_length %>
+                    <em class="block mb-2 text-sm font-medium text-gray-300">(<%= @minimum_password_length %> characters minimum)</em>
+                  <% end %>
+                  <%= f.password_field :password, autocomplete: "new-password", class: "bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5", placeholder: "••••••••", required: true %>
+                  <% if resource.errors[:password].any? %>
+                    <p class="text-red-500 text-xs mt-1">
+                      <%= resource.errors.full_messages_for(:password).join(", ") %>
+                    </p>
+                  <% end %>
+                </div>
+
+                <!-- Password Confirmation Field -->
+                <div>
+                  <%= f.label :password_confirmation, class: "block mb-2 text-sm font-medium text-white" %>
+                  <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5", placeholder: "••••••••", required: true %>
+                  <% if resource.errors[:password_confirmation].any? %>
+                    <p class="text-red-500 text-xs mt-1">
+                      <%= resource.errors.full_messages_for(:password_confirmation).join(", ") %>
+                    </p>
+                  <% end %>
+                </div>
+
+                <!-- Submit Button -->
+                <%= f.submit "Sign up", class: "w-full text-white bg-gray-800 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
+
+              <% end %>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+<%# <%= render "devise/shared/links" %>
